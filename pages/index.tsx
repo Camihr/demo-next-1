@@ -2,10 +2,35 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import useFetch from '../services/fetchData'
+
+interface User {
+  id: string
+  first_name: string
+  email: string
+}
+
+type UsersApiResponse = {
+  page: number
+  per_page: number
+  total: number
+  total_pages: number
+  data: User[]
+}
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const fetchState = useFetch<UsersApiResponse>('https://reqres.in/api/users')
+
+  if (fetchState.state === 'loading' || fetchState.state === 'idle') {
+    return <div>Cargando...</div>
+  }
+
+  if (fetchState.state === 'error' || !fetchState.data) {
+    return <div>Error</div>
+  }
+
   return (
     <>
       <Head>
@@ -14,9 +39,13 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <a href='/about'>About</a>
-      </main>
+      <div className='App'>
+        <h1>💛 useFetch</h1>
+        <h2>Lista de usuarios</h2>
+        {fetchState.data.data.map((user) => (
+          <div key={user.id}>{user.email}</div>
+        ))}
+      </div>
     </>
   )
 }
