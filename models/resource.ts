@@ -1,6 +1,6 @@
 export interface Resource {
   info: Info
-  //tacticalPlanning: TacticalPlanning
+  tacticalPlanning: Plan[]
 }
 
 export interface Info {
@@ -12,7 +12,7 @@ export interface Info {
   centerCode: string
 }
 
-// export interface TacticalPlanning []{
-//   forecastedDate: Date
-//   adu: number
-// }
+export interface Plan {
+  forecastedDate: Date
+  adu: number
+}
