@@ -1,0 +1,115 @@
+@import './vars';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  line-height: 0;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  outline: 0;
+}
+
+main {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.conte-table {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  grid-area: 20px;
+  background: white;
+}
+
+table {
+  background: white;
+  width: 100%;
+  border-collapse: collapse;
+}
+table th,
+table td {
+  padding: 5px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  vertical-align: middle;
+  white-space: nowrap;
+  min-width: 200px;
+}
+table th {
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  background: #ededed;
+}
+table th.th-center {
+  text-align: center;
+}
+table th.th-order button {
+  cursor: pointer;
+  line-height: 0;
+  font-weight: 700;
+  white-space: nowrap;
+  gap: 15px;
+  width: 100%;
+}
+table th.th-order.order-disabled button::after {
+  margin-left: 5px;
+}
+table th.th-order.order-desc button::after {
+  margin-left: 5px;
+}
+table th.th-order.order-asc button::after {
+  margin-left: 5px;
+}
+table td .td-button {
+  width: 100%;
+  height: 16px;
+  inset-inline: 0;
+  padding: 0;
+  margin: 0;
+}
+table td.td-number {
+  text-align: right;
+}
+table td.td-secondary-icon {
+  text-align: center;
+}
+table td.td-secondary-icon svg {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+table td ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+table td ul li {
+  line-height: 1.5rem;
+}
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}

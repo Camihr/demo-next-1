@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import { Resource } from "@/models/resource";
+import { Resource, Plan } from "@/models/resource";
 import useFetch from "../services/fetchData";
 
 let resources: Resource[] = [];
+let planDates: Plan[] = [];
 
 export default function Planning() {
   const fetchState = useFetch<Resource[]>(
@@ -19,6 +20,7 @@ export default function Planning() {
   }
 
   resources = fetchState.data;
+  planDates = resources[0].tacticalPlanning;
 
   return (
     <>
@@ -30,47 +32,29 @@ export default function Planning() {
       </Head>
       <main>
         <div className="conte-table">
-          {resources.map((res, i) => (
-            <table key={i}>
-              <thead>
-                <tr>
-                  <th>Descripción</th>
-                  <th>Referencia</th>
-                  {res.tacticalPlanning.map((plan, i) => (
-                    <th>{plan.forecastedDate.toString()}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="conte-table">
-                  <td>{res.info.materialDescription}</td>
-                  <td>{res.info.reference}</td>
-                  {res.tacticalPlanning.map((plan, i) => (
-                    <th>{plan.adu}</th>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
-          ))}
-        </div>
-
-        {/* {resources.map((res, i) => (
-          <div className="conte-table" key={i}>
-            <table>
-              <thead>
-                <thead>
-                  <tr>
-                    <th>{res.info.materialDescription}</th>
-                    <th>{res.info.reference}</th>
+          <table>
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Referencia</th>
+                {planDates.map((plan, i) => (
+                  <th key={i}>{plan.forecastedDate.toString()}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+                {resources.map((res, i) => (
+                  <tr key={i}>
+                    <td>{res.info.materialDescription}</td>
+                    <td>{res.info.reference}</td>
+                    {res.tacticalPlanning.map((plan, i) => (
+                      <td key={i}>{plan.adu}</td>
+                    ))}
                   </tr>
-                </thead>
-              </thead>
-            </table>
-          </div>
-        ))} */}
-
-        <br />
-        <a href="/">Home</a>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </main>
     </>
   );
